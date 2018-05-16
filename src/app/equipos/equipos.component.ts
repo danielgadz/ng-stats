@@ -1,4 +1,4 @@
-import {EquipoService} from '../service/equipo.service';
+import { EquipoService } from '../service/equipo.service';
 import { Component, OnInit } from '@angular/core';
 import { Equipo } from '../model/equipo';
 
@@ -16,15 +16,24 @@ export class EquiposComponent implements OnInit {
 
   selectedEquipo: Equipo;
 
-  equipos = this.equipoService.obtenerEquipos();
+  equipos: Equipo[] = [];
 
   constructor(private equipoService: EquipoService) { }
 
   ngOnInit() {
-
+    this.obtenerEquipos();
   }
 
   onSelect(equipo: Equipo): void {
     this.selectedEquipo = equipo;
+  }
+
+  obtenerEquipos(): void {
+    this.equipoService.obtenerEquipos().subscribe(
+      /*function (arregloequipos) {
+        this.equipos = arregloequipos;
+      }*/
+      arregloequipos => this.equipos = arregloequipos
+    );
   }
 }
