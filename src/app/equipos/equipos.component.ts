@@ -1,6 +1,7 @@
 import { EquipoService } from '../service/equipo.service';
 import { Component, OnInit } from '@angular/core';
 import { Equipo } from '../model/equipo';
+import { MensajeService } from '../service/mensaje.service';
 
 @Component({
   selector: 'app-equipos',
@@ -9,22 +10,20 @@ import { Equipo } from '../model/equipo';
 })
 export class EquiposComponent implements OnInit {
 
-  equipo: Equipo = {
-    id: 1,
-    name: 'Nombre Equipo'
-  };
-
   selectedEquipo: Equipo;
 
   equipos: Equipo[] = [];
 
-  constructor(private equipoService: EquipoService) { }
+  constructor(private equipoService: EquipoService, private mensajeService: MensajeService) { }
 
   ngOnInit() {
     this.obtenerEquipos();
   }
 
   onSelect(equipo: Equipo): void {
+    const mensaje = `Has seleccionado el equipo con id: ${equipo.id} y con nombre ${equipo.name}`;
+    //const mensaje = 'Has seleccionado el equipo con id: ' + equipo.id + ' y con nombre: ' + equipo.name;
+    this.mensajeService.agregar(mensaje);
     this.selectedEquipo = equipo;
   }
 
